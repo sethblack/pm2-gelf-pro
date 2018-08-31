@@ -1,0 +1,27 @@
+{
+  "name": "pm2-gelf-pro",
+  "version": "1.0.0",
+  "description": "PM2 logging to Graylog using gelf-pro",
+  "main": "app.js",
+  "dependencies": {
+    "gelf-pro": "~1.2",
+    "pm2": "^2.0.18",
+    "pmx": "latest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sethblack/pm2-gelf-pro.git"
+  },
+  "config": {
+    "graylogPort": 12201,
+    "graylogHost": "127.0.0.1",
+    "gelfAdapterName": "udp"
+  },
+  "author": "Seth Black <sblack@sethserver.com>",
+  "license": "Apache 2",
+  "devDependencies": {
+    "eslint": "^5.4.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0"
+  }
+}
