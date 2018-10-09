@@ -13,8 +13,8 @@
     "url": "https://github.com/sethblack/pm2-gelf-pro.git"
   },
   "config": {
-    "graylogPort": 12209,
-    "graylogHost": "127.0.0.10",
+    "graylogPort": 12201,
+    "graylogHost": "127.0.0.1",
     "gelfAdapterName": "udp"
   },
   "author": "Seth Black <sblack@sethserver.com>",
