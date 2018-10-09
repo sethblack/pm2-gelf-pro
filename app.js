@@ -38,7 +38,8 @@ pm2.Client.launchBus((err, bus) => {
 
   bus.on('log:err', (log) => {
     if (log.process.name === 'pm2-gelf-pro') return;
-    gelflog.info(log.data);
+
+    gelflog.error(log.data);
   });
 
   bus.on('close', () => {

@@ -1,6 +1,6 @@
 {
   "name": "pm2-gelf-pro",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "PM2 logging to Graylog using gelf-pro",
   "main": "app.js",
   "dependencies": {
@@ -13,8 +13,8 @@
     "url": "https://github.com/sethblack/pm2-gelf-pro.git"
   },
   "config": {
-    "graylogPort": 12201,
-    "graylogHost": "127.0.0.1",
+    "graylogPort": 12209,
+    "graylogHost": "127.0.0.10",
     "gelfAdapterName": "udp"
   },
   "author": "Seth Black <sblack@sethserver.com>",
