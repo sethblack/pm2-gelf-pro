@@ -14,7 +14,7 @@ gelflog.setConfig({
   adapterOptions: {
     host: conf.graylogHost,
     port: conf.graylogPort,
-  },
+  }
 });
 
 if (conf.graylogFields) {
@@ -27,19 +27,45 @@ if (conf.graylogFields) {
   }
 }
 
+function getLogData(data) {
+  data=data.trim().replace(/\n/g, "\\\\n").replace(/\r/g, "\\\\r").replace(/\t/g, "\\\\t");
+  try {
+    json = JSON.parse(data);
+    if (json.message.trim().length === 0) {
+      return "";
+    }
+    return json;
+  } catch(err) {
+    return data;
+  }
+}
+
 pm2.Client.launchBus((err, bus) => {
   if (err) return;
 
   bus.on('log:out', (log) => {
     if (log.process.name === 'pm2-gelf-pro') return;
-
-    gelflog.info(log.data, {application_name: log.process.name});
+    data = getLogData(log.data);
+    if (typeof data === 'string'){
+      if (data.length == 0) return;
+      gelflog.info(data, {application_name: log.process.name});
+    } else {
+      data['application_name'] = log.process.name;
+      gelflog.info(data.message, data);
+    }
   });
 
   bus.on('log:err', (log) => {
     if (log.process.name === 'pm2-gelf-pro') return;
+    data = getLogData(log.data);
+    if (typeof data === 'string'){
+      if (data.length == 0) return;
+      gelflog.info(data, {application_name: log.process.name});
+    } else {
+      data['application_name'] = log.process.name;
+      gelflog.info(data.message, data);
+    }
 
-    gelflog.error(log.data, {application_name: log.process.name});
   });
 
   bus.on('close', () => {
